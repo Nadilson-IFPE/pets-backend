@@ -1,5 +1,7 @@
 package br.com.treinaweb.adoteumpet.api.adocao.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +22,7 @@ public class AdocaoController {
 	
 	@PostMapping("/api/adocoes")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public AdocaoResponse create(@RequestBody AdocaoRequest adocaoRequest) {
+	public AdocaoResponse create(@RequestBody @Valid AdocaoRequest adocaoRequest) {
 		return adocaoService.create(adocaoRequest);
 	}
 }
