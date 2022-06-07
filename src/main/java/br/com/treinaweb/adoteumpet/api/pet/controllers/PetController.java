@@ -2,6 +2,7 @@ package br.com.treinaweb.adoteumpet.api.pet.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,13 +24,18 @@ public class PetController {
 
     @GetMapping("/api/pets")
     public List<PetResponse> findAll() {
-        var pets = petRepository.findAll();
-        var petResponses = new ArrayList<PetResponse>();
-
-        for (Pet pet : pets) {
-            petResponses.add(petMapper.toResponse(pet));
-        }
-
-        return petResponses;
+//        var pets = petRepository.findAll();
+//        var petResponses = new ArrayList<PetResponse>();
+//
+//        for (Pet pet : pets) {
+//            petResponses.add(petMapper.toResponse(pet));
+//        }
+//
+//        return petResponses;
+    	
+    	return petRepository.findAll()
+    			.stream()
+    			.map((pet) -> petMapper.toResponse(pet))
+    			.collect(Collectors.toList());
     }
 }
