@@ -1,8 +1,6 @@
 package br.com.treinaweb.adoteumpet.api.pet.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.treinaweb.adoteumpet.api.pet.dto.PetResponse;
 import br.com.treinaweb.adoteumpet.api.pet.mappers.PetMapper;
-import br.com.treinaweb.adoteumpet.core.models.Pet;
 import br.com.treinaweb.adoteumpet.core.repositories.PetRepository;
 
 @RestController
@@ -35,7 +32,11 @@ public class PetController {
     	
     	return petRepository.findAll()
     			.stream()
-    			.map((pet) -> petMapper.toResponse(pet))
-    			.collect(Collectors.toList());
+    			//.map((pet) -> petMapper.toResponse(pet))
+    			// Linha acima ou:
+    			.map(petMapper::toResponse)
+    			//.collect(Collectors.toList());
+    			// Linha acima ou:
+    			.toList();
     }
 }
