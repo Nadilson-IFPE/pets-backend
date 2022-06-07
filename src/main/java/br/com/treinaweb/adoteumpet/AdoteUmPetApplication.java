@@ -20,11 +20,17 @@ public class AdoteUmPetApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		var pet = new Pet();
-		pet.setNome("Zeus");
-		pet.setHistoria("História emocionante");
-		pet.setFoto("https://veja.abril.com.br/wp-content/uploads/2017/01/cao-labrador-3-copy.jpg");
-		petRepository.save(pet);
+		var pet1 = new Pet();
+		pet1.setNome("Zeus");
+		pet1.setHistoria("História emocionante");
+		pet1.setFoto("/imagens/zeus.jpg");
+		petRepository.save(pet1);
+		
+		var pet2 = new Pet();
+		pet2.setNome("Luma");
+		pet2.setHistoria("História emocionante");
+		pet2.setFoto("/imagens/luma.jpg");
+		petRepository.save(pet2);
 	}
 
 }
