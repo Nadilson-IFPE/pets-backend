@@ -16,11 +16,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
+
 import br.com.treinaweb.adoteumpet.api.common.dtos.ErrorResponse;
 
 @RestControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
+	private final SnakeCaseStrategy snakeCaseStrategy = new SnakeCaseStrategy();
+	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -40,7 +44,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	private Map<String, List<String>> convertFieldErrors(List<FieldError> fieldErrors) {
 		var errors = new HashMap<String, List<String>>();
 		fieldErrors.stream().forEach(fieldError -> {
-			var field = fieldError.getField();
+			var field = snakeCaseStrategy.translate(fieldError.getField());
 			if (errors.containsKey(field)) {
 				errors.get(field).add(fieldError.getDefaultMessage());
 			} else {
@@ -48,7 +52,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 			//	errorList.add(fieldError.getDefaultMessage());
 			//	errors.put(field, errorList);
 				errors.put(field, 
-						Stream.of(fieldError.getDefaultMessage()).collect(Collectors.toList()));
+						Stream.of(fieldError.getDefaultMessage()).collect(Collectors.toList())
+				);
 			}
 		});
 		return errors;
