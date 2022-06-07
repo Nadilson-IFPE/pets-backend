@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Pet {
 
